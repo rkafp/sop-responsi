@@ -1,0 +1,217 @@
+<!-- By @rkafp -->
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>NOMOR 1</title>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<style type="text/css">
+		* { box-sizing:border-box;font-family:sans-serif; }
+
+		.container    { 
+		  width:100%; 
+		  margin:30px auto 0; 
+		  display:block; 
+		  background:#FFF;
+		  padding:10px 50px 50px;
+		}
+		h2     { 
+		  text-align:center; 
+		  margin-bottom:50px; 
+		}
+		h2 small { 
+		  font-weight:normal; 
+		  color:#888; 
+		  display:block; 
+		}
+		.footer   { text-align:center; }
+		.footer a  { color:#53B2C8; }
+
+
+		.group        { 
+		  position:relative; 
+		  margin-bottom:45px; 
+		}
+		input         {
+		  font-size:18px;
+		  padding:10px 10px 10px 5px;
+		  display:block;
+		  width:100%;
+		  border:none;
+		  border-bottom:1px solid #757575;
+		}
+		input:focus     { outline:none; }
+
+
+		label          {
+		  color:#999; 
+		  font-size:18px;
+		  font-weight:normal;
+		  position:absolute;
+		  pointer-events:none;
+		  left:5px;
+		  top:10px;
+		  transition:0.2s ease all; 
+		  -moz-transition:0.2s ease all; 
+		  -webkit-transition:0.2s ease all;
+		}
+
+
+		input:focus ~ label, input:valid ~ label    {
+		  top:-20px;
+		  font-size:14px;
+		  color:#5264AE;
+		}
+
+
+		.bar  { position:relative; display:block; width:100%; }
+		.bar:before, .bar:after   {
+		  content:'';
+		  height:2px; 
+		  width:0;
+		  bottom:1px; 
+		  position:absolute;
+		  background:#5264AE; 
+		  transition:0.2s ease all; 
+		  -moz-transition:0.2s ease all; 
+		  -webkit-transition:0.2s ease all;
+		}
+		.bar:before {
+		  left:50%;
+		}
+		.bar:after {
+		  right:50%; 
+		}
+
+
+		input:focus ~ .bar:before, input:focus ~ .bar:after {
+		  width:50%;
+		}
+
+
+		.highlight {
+		  position:absolute;
+		  height:60%; 
+		  width:100px; 
+		  top:25%; 
+		  left:0;
+		  pointer-events:none;
+		  opacity:0.5;
+		}
+
+
+		input:focus ~ .highlight {
+		  -webkit-animation:inputHighlighter 0.3s ease;
+		  -moz-animation:inputHighlighter 0.3s ease;
+		  animation:inputHighlighter 0.3s ease;
+		}
+
+
+		@-webkit-keyframes inputHighlighter {
+		  from { background:#5264AE; }
+		  to  { width:0; background:transparent; }
+		}
+		@-moz-keyframes inputHighlighter {
+		  from { background:#5264AE; }
+		  to  { width:0; background:transparent; }
+		}
+		@keyframes inputHighlighter {
+		  from { background:#5264AE; }
+		  to  { width:0; background:transparent; }
+		}
+
+		input[type=button] {
+		  border: none;
+		  cursor: pointer;
+		  color: white;
+		  padding: 15px 40px;
+		  border-radius: 8px;
+		  font-size: 22px;
+		  box-shadow: 2px 2px 4px rgba(0, 0, 0, .4);
+		  background: #7066E0;
+		}
+
+		.swal2-styled.swal2-confirm,.swal2-actions { width:90% !important}
+</style>
+</head>
+<body>
+	<div class="container">
+	<h2>Manajemen RAM<br><br><small>5200411213</small></h2>
+	<form>
+		<div class="group">      
+			<input type="number" id="totalRAM" min="0" required />
+			<span class="highlight"></span>
+			<span class="bar"></span>
+			<label>Total Kapasitas RAM (GBps)</label>
+		</div>
+
+		<div class="group">      
+			<input type="number" id="totalPB" min="0" required />
+			<span class="highlight"></span>
+			<span class="bar"></span>
+			<label>Total Peta Bit (KBps)</label>
+		</div>
+
+		<div class="group">      
+			<input type="number" id="ramSO" min="0" required />
+			<span class="highlight"></span>
+			<span class="bar"></span>
+			<label>Besar Kapasitas RAM yang Digunakan Sistem Operasi (GBps)</label>
+		</div>
+
+		<div class="group">      
+			<input type="number" id="ramP1" min="0" required />
+			<span class="highlight"></span>
+			<span class="bar"></span>
+			<label>Besar Kapasitas RAM yang Digunakan Program 1 (GBps)</label>
+		</div>
+
+		<div class="group">      
+			<input type="number" id="ramP2" min="0" required />
+			<span class="highlight"></span>
+			<span class="bar"></span>
+			<label>Besar Kapasitas RAM yang Digunakan Program 2 (GBps)</label>
+		</div>
+
+		<input type="button" onclick="calc()" value="HITUNG" />
+	</form>
+</div>
+
+<script>
+
+    function calc() {
+
+        let totalRAM = Number(document.querySelector("#totalRAM").value);
+        let totalPB = Number(document.querySelector("#totalPB").value);
+        let ramSO = Number(document.querySelector("#ramSO").value);
+        let ramP1 = Number(document.querySelector("#ramP1").value);
+        let ramP2 = Number(document.querySelector("#ramP2").value);
+        
+        const GBtoMB = 1024;
+
+        let perPB = totalRAM * GBtoMB / totalPB;
+        let terpakaiRAM = GBtoMB * (ramSO + ramP1 + ramP2);
+        let bebasRAM = totalRAM * GBtoMB - (terpakaiRAM);
+        let blok1 = terpakaiRAM / totalPB;
+        let blok0 = perPB -  blok1;
+
+        terpakaiRAM = terpakaiRAM/GBtoMB;
+        bebasRAM = bebasRAM/GBtoMB;
+
+        let groups = [totalRAM, totalPB, ramSO, ramP1, ramP2, "temp"]
+
+        for (const x of groups) {
+            if (!x) {
+                groups[5] = ""
+                Swal.fire({ icon: 'error', title: 'Oops...', text: 'Tolong isi semua form!' })
+            } 
+            else {
+                Swal.fire('Hasil Running Simulasi Manajemen RAM', `Total Kapasitas RAM: <b>${totalRAM} GBps</b><br><br>Total Peta Bit: <b>${totalPB} KBps</b><br><br>Kapasitas per Peta Bit: <b>${perPB} KBps</b><br><br>Total RAM yang Terpakai: <b>${terpakaiRAM} GBps</b><br><br>Total RAM yang Tidak Terpakai: <b>${bebasRAM} GBps</b><br><br>Jumlah Blok yang Bernilai 1: <b>${blok1}</b><br><br>Jumlah Blok yang Bernilai 0: <b>${blok0}</b>`, 'success')
+            }
+        }
+    }
+</script>
+</body>
+</html>
+<!-- By @rkafp -->
