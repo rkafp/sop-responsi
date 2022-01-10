@@ -15,7 +15,7 @@
 <br>
 <p align="center">
 <figure>
-  <img src="https://raw.githubusercontent.com/rkafp/sop-responsi/main/public/no2_1.png" alt="Gambar Hasil Running Simulasi Manajemen RAM"/>
+  <img src="https://raw.githubusercontent.com/rkafp/sop-responsi/main/public/no1_3.png" alt="Gambar Hasil Running Simulasi Manajemen RAM"/>
   <figcaption>ERROR<caption>
   </figure>
 </p>
