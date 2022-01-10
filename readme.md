@@ -88,3 +88,6 @@
 <br>
 <br>
 <p><b>Follow me</b>: <a href="https://bio.link/rkafp">https://bio.link/rkafp</a>
+<br>
+<br>
+<p><b>File laporan</b>: <a href="https://nx.tn/ubVnO">Download</a>
